@@ -1138,6 +1138,7 @@ MonoBehaviour:
   - Start
   - Shop
   - Quit
+  button: {fileID: 0}
 --- !u!4 &1369814137
 Transform:
   m_ObjectHideFlags: 0
