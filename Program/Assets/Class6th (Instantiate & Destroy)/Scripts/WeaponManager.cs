@@ -1,45 +1,72 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 public class WeaponManager : MonoBehaviour
 {
-    [SerializeField] GameObject knife;
-
-    [SerializeField] GameObject [] weapons;
-
-    // 게임 오브젝트 타입 리스트
+    [SerializeField] int count;
+    [SerializeField] GameObject[] weapons;
     [SerializeField] List<GameObject> weaponList;
-     
-    private int count;
-    
-    void Start()
-    {
-        count = 0;
-    }
 
-    public void Equip()
-    {
-        if(weapons.Length <= count)
-        {
-            return;
-        }
+    [SerializeField] bool check;
 
-        GameObject clone = Instantiate(weapons[count++]);
-        clone.gameObject.SetActive(false);
+    GameObject clone;
 
-        // 리스트에 생성된 게임 오브젝트 추가
-        weaponList.Add(clone);
-
-
-    }
-
-    private void Update()
+    void Update()
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
             Equip();
+
+            Shift();
+        }
+
+        if(clone != null) 
+        {
+            if(Input.GetMouseButtonDown(0))
+            {
+                clone.GetComponent<Weapon>().Attack();
+            }  
         }
     }
+
+    public void Equip()
+    {
+        if (check == true)
+        {
+            return;
+        }
+
+        if (weapons.Length <= count)
+        {
+            check = true;
+            return;
+        }
+
+        clone = Instantiate(weapons[count++]);
+
+        if(weaponList.Count >= 1)
+        {
+            weaponList[weaponList.Count-1].gameObject.SetActive(false);
+        }
+
+        clone.gameObject.SetActive(true);
+
+        weaponList.Add(clone);
+    }
+
+    public void Shift()
+    {
+        if (check)
+        {
+            for(int i = 0; i < weaponList.Count; i++) 
+            {
+                weaponList[i].gameObject.SetActive(false);
+            }
+            weaponList[count++ % weaponList.Count].gameObject.SetActive(true);
+
+        }
+    }
+
+
 }

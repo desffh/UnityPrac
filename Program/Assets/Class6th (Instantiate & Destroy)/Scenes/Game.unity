@@ -245,12 +245,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 58526dfa6e9f0474bbf67a1ade448629, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  knife: {fileID: 6440599648175510709, guid: c1ab9abedc9d80f4a9109fe99b4ea8d4, type: 3}
+  count: 0
   weapons:
   - {fileID: 6440599648175510709, guid: c1ab9abedc9d80f4a9109fe99b4ea8d4, type: 3}
   - {fileID: 4965438261709640327, guid: a35b8c32acba1334b9b31dfe8cdbc9be, type: 3}
   - {fileID: 5786097810451525583, guid: 260ff1508afea5241b6511d8fbe92201, type: 3}
   weaponList: []
+  check: 0
 --- !u!4 &1130399712
 Transform:
   m_ObjectHideFlags: 0
