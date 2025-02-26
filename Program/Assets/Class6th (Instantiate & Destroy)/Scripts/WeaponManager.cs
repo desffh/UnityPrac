@@ -1,3 +1,4 @@
+using JetBrains.Annotations;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,7 +11,7 @@ public class WeaponManager : MonoBehaviour
 
     [SerializeField] bool check;
 
-    GameObject clone;
+    [SerializeField] Weapon currentWeapon;
 
     void Update()
     {
@@ -20,13 +21,10 @@ public class WeaponManager : MonoBehaviour
 
             Shift();
         }
-
-        if(clone != null) 
+        
+        if(Input.GetMouseButtonDown(0)) 
         {
-            if(Input.GetMouseButtonDown(0))
-            {
-                clone.GetComponent<Weapon>().Attack();
-            }  
+            Attack();
         }
     }
 
@@ -43,9 +41,12 @@ public class WeaponManager : MonoBehaviour
             return;
         }
 
-        clone = Instantiate(weapons[count++]);
+        GameObject clone = Instantiate(weapons[count++]);
 
-        if(weaponList.Count >= 1)
+        // 참조변수 currentWeapon
+        currentWeapon = clone.GetComponent<Weapon>();
+
+        if (weaponList.Count >= 1)
         {
             weaponList[weaponList.Count-1].gameObject.SetActive(false);
         }
@@ -63,10 +64,20 @@ public class WeaponManager : MonoBehaviour
             {
                 weaponList[i].gameObject.SetActive(false);
             }
+            // 컴포넌트 가져오기 -> count++ 전에꺼의 객체 컴포넌트 가져오기
+            currentWeapon = weaponList[count % weaponList.Count].GetComponent<Weapon>();
+            
             weaponList[count++ % weaponList.Count].gameObject.SetActive(true);
 
         }
     }
 
+    public void Attack()
+    {
+        if(currentWeapon != null) 
+        {
+            currentWeapon.Attack(); 
+        }
+    }
 
 }

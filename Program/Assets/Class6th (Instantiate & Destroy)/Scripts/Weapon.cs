@@ -4,6 +4,8 @@ using UnityEngine;
 
 public abstract class Weapon : MonoBehaviour
 {
+    // 추상클래스는 객체로 만들 수 없다
+
     // 외부에서 미리 값을 지정 (자식의 값들)
     [SerializeField] protected Vector3 direction;
     [SerializeField] protected Vector3 rotation;
